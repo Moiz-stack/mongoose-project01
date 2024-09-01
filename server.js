@@ -61,6 +61,26 @@ app.delete('/book/create/:id', async (req, res) => {
     })
 })
 
+
+// get book with book title
+
+app.get('/book/getbookfromtitle/:title',async(req,res)=>{
+    const book= await BookModel.findOne({title:req.params.title})
+    res.status(200).json({
+        message: "Successfully displayed book using title",
+        book: book
+    })
+})
+
+//get book with book author
+app.get('/book/getbookfromauthor/:author',async(req,res)=>{
+    const book= await BookModel.findOne({author:req.params.author})
+    res.status(200).json({
+        message: "Successfully displayed book using author",
+        book: book
+    })
+})
+
 app.listen(port, (req, res) => {
     console.log(`Server is listening at http://localhost:${port}`)
 })
