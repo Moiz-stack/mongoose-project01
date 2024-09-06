@@ -1,10 +1,10 @@
 
 const UserModel = require('../models/UserSchema')
 
-const addUser = (req, res) => {
+const addUser = async (req, res) => {
     try {
         const user = new UserModel(req.body)
-        user.save()
+        await user.save()
         res.status(200).json({
             message: "Successfully added",
             user: user
@@ -56,7 +56,7 @@ const updateUserWithId = async (req, res) => {
     }
 }
 
-const  deleteUserWithId = async (req, res) => {
+const deleteUserWithId = async (req, res) => {
     try {
         const user = await UserModel.findByIdAndDelete(req.params.id)
         res.status(200).json({
