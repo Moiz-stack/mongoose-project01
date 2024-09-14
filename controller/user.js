@@ -13,6 +13,27 @@ const addUser = async (req, res) => {
     }
 };
 
+
+const loginUser = async (req, res) => {
+    try {
+
+        const user = await UserModel.findOne({ email: req.body.email, password: req.body.password });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.status(200).json({
+            message: "Successfully logged in",
+            user: user
+        });
+    }
+    catch (error) {
+        res.status(500).json({ message: "Error adding user", error });
+    }
+}
+
+
+
 const getUsers = async (req, res) => {
     try {
         const users = await UserModel.find();
@@ -75,5 +96,6 @@ module.exports = {
     getUsers,
     getUserWithId,
     updateUserWithId,
-    deleteUserWithId
+    deleteUserWithId,
+    loginUser
 };

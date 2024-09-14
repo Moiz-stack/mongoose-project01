@@ -7,7 +7,8 @@ const {
     getUsers, 
     getUserWithId, 
     updateUserWithId, 
-    deleteUserWithId
+    deleteUserWithId,
+    loginUser
 } = require('../controller/user')
 
 
@@ -18,6 +19,10 @@ router.post('/add', addUser)
 //get all users
 
 router.get('/getUsers', getUsers)
+
+//create login api
+
+router.post('/login', loginUser)
 
 //get user with id
 
