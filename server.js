@@ -14,6 +14,13 @@ const port = 3000
 
 mongoose.connect('mongodb://localhost:27017/books')
 
+app.use((err, req, res, next) => {
+    res.status(500).json({
+        message: 'An error occurred!',
+        error: err.message
+    });
+});
+
 app.use('/user', userRouter)
 app.use('/book', bookRouter)
 

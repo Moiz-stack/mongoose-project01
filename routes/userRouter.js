@@ -3,13 +3,15 @@ const express = require('express')
 const router = express.Router()
 
 const {
-    addUser, 
-    getUsers, 
-    getUserWithId, 
-    updateUserWithId, 
+    addUser,
+    getUsers,
+    getUserWithId,
+    updateUserWithId,
     deleteUserWithId,
-    loginUser
-} = require('../controller/user')
+    loginUser,
+    borrowBook,
+    returnBook,
+    viewBorrowedBooks } = require('../controller/user')
 
 
 //add user
@@ -35,5 +37,14 @@ router.put('/updateUser/:id', updateUserWithId)
 //delete user with id
 
 router.delete('/deleteUser/:id', deleteUserWithId)
+
+// Borrow a book
+router.post('/users/:id/borrow/:bookId', borrowBook);
+
+// Return a book
+router.post('/users/:id/return/:bookId', returnBook);
+
+// View borrowed books
+router.get('/users/:id/borrowedBooks', viewBorrowedBooks);
 
 module.exports = router

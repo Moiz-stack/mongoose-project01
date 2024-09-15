@@ -25,7 +25,14 @@ const UserSchema = new mongoose.Schema({
     createAt: {
         type: Date,
         default: Date.now()
-    }
+    },
+
+    borrowedBooks: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'book'  // Reference to Book model
+        }
+    ]
 })
 
 
