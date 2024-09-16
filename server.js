@@ -5,8 +5,7 @@ const UserModel = require('./models/UserSchema')
 const BookModel = require('./models/BookSchema')
 const userRouter = require('./routes/userRouter')
 const bookRouter = require('./routes/book')
-
-
+const authRouter=require('./routes/auth')
 
 app.use(express.json())
 
@@ -23,6 +22,7 @@ app.use((err, req, res, next) => {
 
 app.use('/user', userRouter)
 app.use('/book', bookRouter)
+app.use('/auth',authRouter)
 
 app.listen(port, () => {
     console.log(`Server is listening at http://localhost${port}`)

@@ -1,8 +1,14 @@
 const UserModel = require('../models/UserSchema');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 
 const addUser = async (req, res, next) => {
     try {
         const user = new UserModel(req.body);
+        const salt=10;
+        const hashedPassword=await borrowBook(req.body.password,salt);
+        user.password=hashedPassword
         await user.save();
         res.status(200).json({
             message: "Successfully added",
@@ -31,7 +37,6 @@ const loginUser = async (req, res, next) => {
         next(error)
     }
 }
-
 
 
 const getUsers = async (req, res, next) => {
@@ -132,8 +137,7 @@ const returnBook = async (req, res, next) => {
             return res.status(400).json({ message: 'Book not borrowed by this user' });
         }
 
-        user.borrowedBooks = user.borrowedBooks.filter(
-            (bookId) => bookId.toString() !== req.params.bookId
+        user.borrowedBooks = user.borrowedBooks.filter((bookId) => bookId.toString() !== req.params.bookId
         );
         book.available = true;
         await user.save();
