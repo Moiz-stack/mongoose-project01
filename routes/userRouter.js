@@ -1,6 +1,7 @@
 const express = require('express')
 
 const router = express.Router()
+const authMiddleware = require('../Middleware/authMiddleware');
 
 const {
     addUser,
@@ -39,10 +40,10 @@ router.put('/updateUser/:id', updateUserWithId)
 router.delete('/deleteUser/:id', deleteUserWithId)
 
 // Borrow a book
-router.post('/users/:id/borrow/:bookId', borrowBook);
+router.post('/users/:id/borrow/:bookId', authMiddleware, borrowBook);
 
 // Return a book
-router.post('/users/:id/return/:bookId', returnBook);
+router.post('/users/:id/return/:bookId', authMiddleware, returnBook);
 
 // View borrowed books
 router.get('/users/:id/borrowedBooks', viewBorrowedBooks);
